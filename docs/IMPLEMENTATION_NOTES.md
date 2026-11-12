@@ -21,4 +21,4 @@
 | Relational schema and RLS | `database/schema.sql`, `database/rls.sql`, `database/seed.sql` |
 
 ## Before submission
-Run the test cases in the PRD/TRD against a configured Supabase project, verify deployment routing in Vercel, and capture screenshots of all pages at desktop and mobile widths. The project is not deployed; production use still requires Supabase credentials, the owner's photo and verified portfolio content.
+Run the test cases in the PRD/TRD against a configured Supabase project, verify deployment routing in Vercel, and capture screenshots of all pages at desktop and mobile widths. These changes have not yet been deployed; production use still requires Supabase credentials, the owner's photo and verified portfolio content.

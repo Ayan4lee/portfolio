@@ -17,7 +17,7 @@
 
 ## Not verified here
 - No Supabase project credentials were supplied, so SQL import, database persistence, contact storage, admin authentication, uploads and CRUD were not integration-tested.
-- No Vercel deployment was performed; the site is not currently hosted.
+- These changes have not yet been deployed to the existing Vercel site.
 - Full browser visual QA at the PRD's target widths still needs to be done.
 
 Do not describe the application as deployed or production-tested until those steps are completed.

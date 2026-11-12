@@ -45,7 +45,7 @@ insert into public.projects(title,slug,summary,description,category_id,tech_stac
 ('Personal Portfolio Website','personal-portfolio-website','This website: a dynamic portfolio with a protected admin dashboard, built with AI assistance.',
  'A personal portfolio website to showcase identity, education, skills, projects, certificates and professional experience. Built with AI assistance.',
  (select id from public.categories where slug='web-development'),array['HTML','CSS','Bootstrap 5','JavaScript','Node.js','Express.js','Supabase','Vercel'],
- 'Completed','Individual project',array['Home and About sections','Skills and Education','Projects showcase','Contact form','Admin dashboard','Dynamic project management (Add, Edit, Delete)','Certificates section'],'https://github.com/Ayan4lee/portfolio',null,true,true,3),
+ 'Completed','Individual project',array['Home and About sections','Skills and Education','Projects showcase','Contact form','Admin dashboard','Dynamic project management (Add, Edit, Delete)','Certificates section'],'https://github.com/Ayan4lee/portfolio','https://ayanali-shaikh.vercel.app/',true,true,3),
 ('Graphic Design Portfolio','graphic-design-portfolio','More than a year of client and personal design work, currently inactive.',
  'A collection of graphic design work created for clients and personal projects. Independently handled the complete design process. Earned approximately PKR 20,000 per month through local-market design work for around 6–7 months.',
  (select id from public.categories where slug='graphic-design'),array['Adobe Photoshop','Figma'],

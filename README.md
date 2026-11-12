@@ -78,12 +78,12 @@ The admin login is intentionally unavailable until Supabase is configured and an
 
 ## 4. Deploy to Vercel
 
-This project is not currently hosted, so there is no live-site URL yet. After the first deployment, add the canonical public URL here and use that exact origin for `SITE_ORIGIN`.
+Current public website: [ayanali-shaikh.vercel.app](https://ayanali-shaikh.vercel.app/).
 
 1. Push this project to a private or public GitHub repository.
 2. Import the repository into Vercel.
 3. Add the same server environment variables in Vercel Project Settings.
-4. Set `NODE_ENV=production` and `SITE_ORIGIN` to the exact deployed HTTPS origin.
+4. Set `NODE_ENV=production` and `SITE_ORIGIN=https://ayanali-shaikh.vercel.app` (the exact public origin; no trailing slash).
 5. Deploy and test all eight public pages, `/api/health`, contact submission and admin CRUD/inbox.
 
 The `/api/index.js` entry point exports the Express application for Vercel. The normal local listener is separate in `server/index.js`.

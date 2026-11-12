@@ -5,7 +5,7 @@
 2. `database/seed_002_content.sql` (REPLACES old demo skills, education, demo projects)
 
 ## Vercel environment variables (Production)
-SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, JWT_SECRET (32+ chars), CSRF_SECRET (32+ chars), SITE_ORIGIN (the exact HTTPS origin after deployment), NODE_ENV=production, IP_HASH_SALT. The project is not currently hosted. Set a strong admin password with `npm run create-admin`.
+SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, JWT_SECRET (32+ chars), CSRF_SECRET (32+ chars), SITE_ORIGIN=https://ayanali-shaikh.vercel.app, NODE_ENV=production, IP_HASH_SALT. Set a strong admin password with `npm run create-admin`.
 
 ## Placeholders to replace
 - Profile photo: use the Dashboard > Profile photo uploader. A real image must be supplied by the site owner.

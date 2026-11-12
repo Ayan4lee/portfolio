@@ -12,6 +12,7 @@ const { createClient } = require('@supabase/supabase-js');
 const app = express();
 const isProd = process.env.NODE_ENV === 'production';
 if (isProd && (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32 || !process.env.CSRF_SECRET || process.env.CSRF_SECRET.length < 32 || !process.env.SITE_ORIGIN || !process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY)) { throw new Error('Production configuration is incomplete: set Supabase credentials, SITE_ORIGIN, JWT_SECRET and CSRF_SECRET.'); }
+if (isProd) app.set('trust proxy', 1);
 const AUTH_COOKIE = 'portfolio_admin';
 const CSRF_COOKIE = 'portfolio_csrf';
 const supabase = process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY
@@ -63,10 +64,11 @@ function apiError(res,status,message,fields){ return res.status(status).json({er
 function csrfSign(value){ return crypto.createHmac('sha256',process.env.CSRF_SECRET||'local-demo-csrf-secret-change-this').update(value).digest('hex'); }
 function issueCsrf(req,res){ const value=crypto.randomBytes(24).toString('hex'); const signed=`${value}.${csrfSign(value)}`; res.cookie(CSRF_COOKIE,signed,{httpOnly:false,secure:isProd,sameSite:'lax',path:'/',maxAge:2*60*60*1000}); return value; }
 function validCsrf(req){ const header=req.get('X-CSRF-Token'); const signed=req.cookies[CSRF_COOKIE]; if(!header||!signed)return false; const [value,mac]=signed.split('.'); if(!value||!mac||value!==header)return false; const expected=csrfSign(value); const supplied=Buffer.from(mac); const known=Buffer.from(expected); return supplied.length===known.length && crypto.timingSafeEqual(supplied,known); }
-function csrf(req,res,next){ const origin=req.get('Origin'); const expected=process.env.SITE_ORIGIN; if(origin&&expected&&origin!==expected)return apiError(res,403,'Request origin not allowed.'); if(!validCsrf(req))return apiError(res,403,'Your form security token expired. Refresh the page and try again.'); next(); }
+function csrf(req,res,next){ const origin=req.get('Origin'); if(origin){let received,expected;try{received=new URL(origin).origin;const host=req.get('host');if(host)expected=new URL(`${req.protocol}://${host}`).origin;else if(process.env.SITE_ORIGIN)expected=new URL(process.env.SITE_ORIGIN).origin;}catch{return apiError(res,403,'Request origin not allowed.');}if(!expected||received!==expected)return apiError(res,403,'Request origin not allowed.');}if(!validCsrf(req))return apiError(res,403,'Your form security token expired. Refresh the page and try again.'); next(); }
 function auth(req,res,next){ const token=req.cookies[AUTH_COOKIE]; if(!token)return apiError(res,401,'Please sign in to continue.'); try{req.admin=jwt.verify(token,process.env.JWT_SECRET||'local-demo-jwt-secret-change-this-please'); next();}catch{return apiError(res,401,'Your session has expired. Please sign in again.');} }
-const loginLimiter=rateLimit({windowMs:15*60*1000,limit:8,standardHeaders:true,legacyHeaders:false,message:{error:{message:'Too many login attempts. Please try again later.'}}});
-const contactLimiter=rateLimit({windowMs:60*60*1000,limit:5,standardHeaders:true,legacyHeaders:false,message:{error:{message:'Please wait before sending another message.'}}});
+const clientIpKey=req=>rateLimit.ipKeyGenerator(req.ip);
+const loginLimiter=rateLimit({windowMs:15*60*1000,limit:8,standardHeaders:true,legacyHeaders:false,keyGenerator:clientIpKey,message:{error:{message:'Too many login attempts. Please try again later.'}}});
+const contactLimiter=rateLimit({windowMs:60*60*1000,limit:5,standardHeaders:true,legacyHeaders:false,keyGenerator:clientIpKey,message:{error:{message:'Please wait before sending another message.'}}});
 const hasDb=()=>!!supabase;
 async function dbQuery(query, fallback){ if(!supabase)return fallback; const {data,error}=await query; if(error)throw error; return data; }
 function clean(v){return typeof v==='string'?v.trim():'';}
