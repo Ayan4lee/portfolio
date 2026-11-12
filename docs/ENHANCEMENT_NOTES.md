@@ -15,6 +15,9 @@ SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY (rotated), JWT_SECRET (32+ chars), CSRF_
 
 ## Not verified here
 No Supabase or Vercel access, and npm install was not run. Only `node --check` syntax checks were done. Follow the production test checklist before announcing it as live.
+<<<<<<< HEAD
 
 ## Skills page update (migration 003)
 Run in order: `database/migration_003_skills.sql`, then `database/seed_003_skills.sql` (replaces all skill rows). Skills are managed at /admin/skills.html. Related projects are matched by project slug, so keep slugs unchanged. Levels: Beginner, Intermediate, Currently Learning (no percentages).
+=======
+>>>>>>> f9f711a3e075c773e85e6413580903706b497783

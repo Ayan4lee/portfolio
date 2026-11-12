@@ -3,8 +3,11 @@ const entity=document.body.dataset.entity;if(!entity)return;
 const yes=v=>v?'<span class="badge text-bg-success">Yes</span>':'<span class="badge text-bg-secondary">No</span>';
 const F=(k,label,type='text',o={})=>({k,label,type,...o});
 const CFG={
+<<<<<<< HEAD
 skills:{singular:'skill',cols:x=>[`<strong>${esc(x.name)}</strong>${x.description?`<div class="small" style="color:var(--muted)">${esc(x.description)}</div>`:''}`,esc(x.category),`<span class="badge text-bg-${x.level==='Intermediate'?'success':x.level==='Beginner'?'secondary':'warning'}">${esc(x.level)}</span>`],
  fields:[F('name','Name *','text',{col:6,max:100}),F('category','Category *','select',{col:6,opts:['Programming Languages','Web Development','Data Science and Machine Learning','Databases','Hardware and Embedded Systems','Development Tools','Design Tools']}),F('level','Level *','select',{col:6,opts:['Beginner','Intermediate','Currently Learning']}),F('display_order','Display order','number',{col:6,def:0}),F('description','How I use it (optional)','textarea',{col:12,max:240}),F('project_slugs','Related project slugs (one per line)','textarea',{col:12})]},
+=======
+>>>>>>> f9f711a3e075c773e85e6413580903706b497783
 achievements:{singular:'achievement',cols:x=>[`<strong>${esc(x.title)}</strong><div class="small" style="color:var(--muted)">${esc(x.date_label||'')}</div>`,esc(x.kind),esc(x.result||'—'),yes(x.is_published)],
  fields:[F('kind','Type *','select',{opts:['participant','organizer'],col:4}),F('title','Title *','text',{col:8,max:160}),F('role','Role','text',{col:6}),F('date_label','Date (display text)','text',{col:6,ph:'22–23 October 2026'}),F('location','Location'),F('organizer','Organizer / partner'),F('result','Result','text',{col:4,ph:'2nd position'}),F('team_size','Team size','number',{col:4}),F('competition_teams','Teams competing','number',{col:4}),F('participants','Participants (organizer)','number',{col:4}),F('display_order','Display order','number',{col:4,def:0}),F('description','Description','textarea',{col:12}),F('highlights','Highlights (one per line)','textarea',{col:12}),F('website_url','Website URL','url',{col:12}),F('image_url','Image URL','url',{col:12,upload:'achievements'}),F('is_published','Published','checkbox',{col:12,def:true})]},
 certificates:{singular:'certificate',cols:x=>[`<strong>${esc(x.title)}</strong>`,esc(x.issuer),x.file_url?`<a href="${safeUrl(x.file_url)}" target="_blank" rel="noopener">${esc(x.file_type||'file')} ↗</a>`:'<span style="color:var(--muted)">Pending</span>',yes(x.is_published)],
@@ -33,7 +36,11 @@ document.addEventListener('DOMContentLoaded',async()=>{
  document.getElementById('newButton').addEventListener('click',()=>{editing=null;fill(null);document.getElementById('crudTitle').textContent='New '+cfg.singular;modal.show();});
  table.addEventListener('click',async e=>{const ed=e.target.closest('[data-edit]'),dl=e.target.closest('[data-del]');
   if(ed){editing=rows.find(r=>String(r.id)===ed.dataset.edit);fill(editing);document.getElementById('crudTitle').textContent='Edit '+cfg.singular;modal.show();}
+<<<<<<< HEAD
   if(dl){const x=rows.find(r=>String(r.id)===dl.dataset.del);if(!x||!confirm(`Delete “${x.title||x.name}”? This cannot be undone.`))return;try{await api(`/admin/${entity}/${x.id}`,{method:'DELETE',headers:{'X-CSRF-Token':await getToken()}});adminAlert('Deleted.','success');await load();}catch(err){adminAlert(err.message);}}});
+=======
+  if(dl){const x=rows.find(r=>String(r.id)===dl.dataset.del);if(!x||!confirm(`Delete “${x.title}”? This cannot be undone.`))return;try{await api(`/admin/${entity}/${x.id}`,{method:'DELETE',headers:{'X-CSRF-Token':await getToken()}});adminAlert('Deleted.','success');await load();}catch(err){adminAlert(err.message);}}});
+>>>>>>> f9f711a3e075c773e85e6413580903706b497783
  document.getElementById('crudForm').addEventListener('submit',async e=>{e.preventDefault();const btn=document.getElementById('crudSave');btn.disabled=true;
   try{for(const f of cfg.fields.filter(f=>f.upload)){const fi=document.getElementById('f_'+f.k+'_file');if(fi&&fi.files[0]){const up=await uploadFile(fi.files[0],f.upload);document.getElementById('f_'+f.k).value=up.url;}}
    const body={};cfg.fields.forEach(f=>body[f.k]=val(f));

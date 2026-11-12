@@ -22,6 +22,7 @@
 .navbar .nav-link{padding-left:.7rem;padding-right:.7rem;font-size:.92rem}
 .nav-link:focus-visible,.btn:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .admin-sidebar a{display:block}
+<<<<<<< HEAD
 
 /* --- skills page --- */
 .level-learning{background:#fff4de;color:#8a5a00;border:1px dashed #e8a23a}[data-theme="dark"] .level-learning{background:#3a2f14;color:#f2c879}
@@ -33,3 +34,5 @@
 .skill-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}.skill-card h3{font-size:1.05rem;margin:0}.skill-card p{font-size:.9rem;color:var(--muted);margin:.5rem 0 0}
 .skill-used{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;margin-top:.7rem;font-size:.8rem}.skill-used span{color:var(--muted)}.skill-used a{padding:.1rem .5rem;border-radius:6px;background:var(--teal-100);color:var(--teal-700)}.skill-used a:hover{text-decoration:underline}
 a.skill-chip{display:block;color:inherit}a.skill-chip:hover{border-color:var(--teal-500)}
+=======
+>>>>>>> f9f711a3e075c773e85e6413580903706b497783
