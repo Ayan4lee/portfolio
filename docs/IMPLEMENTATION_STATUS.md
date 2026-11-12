@@ -1,23 +1,23 @@
-# Implementation status — 11 November 2026
+# Implementation status — 12 November 2026
 
 ## Delivered in this source package
-- Four responsive public pages and shared visual system.
-- Dynamic public API integration points for profile, projects, skills and education.
+- Eight responsive public pages and shared visual system.
+- Dynamic public APIs for profile, projects, skills, education, achievements, certificates and experience.
 - Project search, category/technology filters and detail modal.
 - Contact form validation, CSRF double-submit cookie, honeypot and rate limit.
-- Admin login and protected project CRUD API/UI.
+- Admin login and protected CRUD for projects, skills, education, achievements, certificates and experience.
+- Contact-message inbox and profile-photo upload.
 - Supabase schema, RLS and starter seed scripts.
 - Vercel function entry point, local Express entry point, setup guide and design references.
 
 ## Checks completed in this environment
-- All JavaScript source files passed `node --check` syntax validation.
-- `package.json` and `vercel.json` parsed as valid JSON.
-- Project folder and archive were checked for required source files.
+- All 11 project JavaScript files passed `node --check` syntax validation.
+- Local demo-mode APIs returned health, skills and education data; the favicon redirect resolved to the SVG.
+- Browser smoke checks confirmed skills render, featured projects load, home loading placeholders resolve, and dark mode changes the page theme.
 
 ## Not verified here
-- npm dependency installation did not finish in the available execution window.
-- No Supabase project credentials were supplied, so SQL import, database queries, contact persistence, admin authentication and CRUD were not integration-tested.
-- No Vercel deployment was performed.
-- Browser visual QA at the PRD's target widths still needs to be done after running the app.
+- No Supabase project credentials were supplied, so SQL import, database persistence, contact storage, admin authentication, uploads and CRUD were not integration-tested.
+- No Vercel deployment was performed; the site is not currently hosted.
+- Full browser visual QA at the PRD's target widths still needs to be done.
 
 Do not describe the application as deployed or production-tested until those steps are completed.

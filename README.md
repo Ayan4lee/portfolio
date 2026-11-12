@@ -4,13 +4,17 @@ A responsive, database-driven portfolio built with HTML5, CSS3, Bootstrap 5.3, V
 
 ## Included
 
-- Four public pages: Home, Skills & Education, Projects and Contact.
-- Dynamic profile, project, skill and education API endpoints.
+- Eight public pages: Home, About, Skills, Projects, Hackathons, Certificates, Experience and Contact.
+- Dynamic profile, project, skill, education, achievement, certificate and experience API endpoints.
 - Project search, category filters and project details modal.
 - Light/dark theme toggle and responsive navigation.
 - Contact form with browser/server validation, CSRF token, honeypot and rate limiting.
+- Admin CRUD for projects, skills, education, achievements, certificates and experience.
+- Admin contact-message inbox with read/unread and delete actions.
+- Admin profile-photo upload, stored in the public Supabase Storage bucket.
+- Admin media uploads for project, achievement and certificate content.
 - Admin login using bcrypt password hashes and a 30-minute signed JWT in an HttpOnly cookie.
-- Protected project create, read, update and delete endpoints.
+- Protected admin API routes with server-side validation.
 - Supabase schema, RLS policies and starter seed data.
 - Vercel function entry point and local Express server.
 
@@ -41,6 +45,10 @@ In Supabase SQL Editor, run these files in order:
 1. `database/schema.sql`
 2. `database/rls.sql`
 3. `database/seed.sql`
+4. `database/migration_002_enhancements.sql`
+5. `database/seed_002_content.sql`
+6. `database/migration_003_skills.sql`
+7. `database/seed_003_skills.sql`
 
 Create the initial admin account:
 
@@ -61,16 +69,22 @@ Open http://localhost:3000.
 - Login: `/admin/login.html`
 - Dashboard: `/admin/index.html`
 - Project management: `/admin/projects.html`
+- Skills and education: `/admin/skills.html`, `/admin/education.html`
+- Achievements, certificates and experience: `/admin/achievements.html`, `/admin/certificates.html`, `/admin/experience.html`
+- Contact inbox: `/admin/messages.html`
+- Profile photo: upload from the dashboard's Profile photo panel.
 
 The admin login is intentionally unavailable until Supabase is configured and an admin user has been created. Admin API routes are protected on the server; hiding the dashboard UI is not treated as authorization.
 
 ## 4. Deploy to Vercel
 
+This project is not currently hosted, so there is no live-site URL yet. After the first deployment, add the canonical public URL here and use that exact origin for `SITE_ORIGIN`.
+
 1. Push this project to a private or public GitHub repository.
 2. Import the repository into Vercel.
 3. Add the same server environment variables in Vercel Project Settings.
 4. Set `NODE_ENV=production` and `SITE_ORIGIN` to the exact deployed HTTPS origin.
-5. Deploy and test the public pages, `/api/health`, contact submission and admin project CRUD.
+5. Deploy and test all eight public pages, `/api/health`, contact submission and admin CRUD/inbox.
 
 The `/api/index.js` entry point exports the Express application for Vercel. The normal local listener is separate in `server/index.js`.
 
@@ -78,7 +92,7 @@ The `/api/index.js` entry point exports the Express application for Vercel. The 
 
 The starter data is clearly provisional. Before making the site public:
 
-- Replace the portrait placeholder with your own professional photograph in `public/assets/img/` and update the profile image usage.
+- Replace the profile illustration by uploading your own professional photograph from the admin dashboard. A real portrait must be supplied by the site owner; the repository only contains a placeholder illustration.
 - Add your actual public email, GitHub, LinkedIn and resume URLs in `site_profile`.
 - Review the short/long biography and location.
 - Confirm each project description, image, technologies, dates, live URL and repository URL accurately describe your actual work.
@@ -89,7 +103,7 @@ Do not publish fake project claims or leave placeholder contact details as if th
 
 ## 6. Demo mode vs real persistence
 
-When Supabase environment variables are absent, public GET endpoints return local demo content so the UI can be previewed. This fallback is process-local and not persistent. Contact storage and admin login are disabled without Supabase. Configure Supabase before using this as a real portfolio.
+When Supabase environment variables are absent, profile, projects, skills and education use local demo content; the added content sections return empty lists. This fallback is process-local and not persistent. Contact storage and admin login are disabled without Supabase. Configure Supabase before using this as a real portfolio.
 
 ## 7. Security notes
 
@@ -103,4 +117,4 @@ When Supabase environment variables are absent, public GET endpoints return loca
 
 ## 8. Known scope boundaries
 
-Required project CRUD is implemented. Skills and education are dynamically read from Supabase but are maintained directly in Supabase SQL/Table Editor; their optional admin CRUD modules and a contact-message inbox are not included. Image uploads are not included; use hosted image URLs or repository assets.
+Skills, education, project, achievement, certificate and experience CRUD, as well as a contact-message inbox and profile-photo upload, are available in the admin area. Editing other profile fields is not included; update the profile row in Supabase directly. There is no image-cropping editor; uploaded media is stored in the public Supabase Storage bucket.

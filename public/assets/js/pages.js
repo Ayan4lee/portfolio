@@ -14,7 +14,6 @@ async about(){
  }catch{fail('longBio','About information is temporarily unavailable.');fail('educationTimeline','Education is temporarily unavailable.');}
 },
 async skills(){
-<<<<<<< HEAD
  const box=document.getElementById('skillsContainer');
  const slug=c=>'cat-'+c.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
  const slow=setTimeout(()=>{const l=document.getElementById('skillsLoading');if(l)l.textContent='Still loading… this is taking longer than usual.';},4000);
@@ -36,11 +35,6 @@ async skills(){
   observeReveals();
  };
  await load();
-=======
- try{const s=await api('/skills');const g=s.reduce((a,x)=>((a[x.category]??=[]).push(x),a),{});
-  document.getElementById('skillsContainer').innerHTML=Object.keys(g).length?Object.entries(g).map(([c,items])=>`<div class="col-md-6"><div class="content-card skill-group reveal h-100"><h3>${esc(c)}</h3><div class="skill-tags">${items.map(x=>`<span class="skill-tag"><strong>${esc(x.name)}</strong><span class="level level-${esc((x.level||'Beginner').toLowerCase())}">${esc(x.level||'Beginner')}</span></span>`).join('')}</div></div></div>`).join(''):'<div class="empty-state">No skills have been added yet.</div>';observeReveals();
- }catch{fail('skillsContainer','Skills are temporarily unavailable.');}
->>>>>>> f9f711a3e075c773e85e6413580903706b497783
 },
 async hackathons(){
  try{const a=await api('/achievements');const org=a.filter(x=>x.kind==='organizer'),par=a.filter(x=>x.kind==='participant');

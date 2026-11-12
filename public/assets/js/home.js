@@ -9,10 +9,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
   grid.addEventListener('click',e=>{const b=e.target.closest('[data-project-id]');if(b)location.href='/projects.html?project='+encodeURIComponent(b.dataset.projectId);});
   observeReveals();}
  catch{grid.innerHTML='<div class="empty-state">Project information is temporarily unavailable.</div>';}
-<<<<<<< HEAD
  try{const sk=await api('/skills');document.querySelectorAll('#homeSkills [data-skills]').forEach(chip=>{const names=chip.dataset.skills.split('|');const found=names.map(n=>sk.find(x=>x.name===n)).filter(Boolean);const small=chip.querySelector('.small');if(!found.length){chip.hidden=true;return;}if(names.length===1)small.textContent=found[0].level;else{const learn=found.filter(x=>x.level==='Currently Learning').length;small.textContent=learn?`${found.length} skills · ${learn} learning`:`${found.length} skills`;}});}catch{}
-=======
->>>>>>> f9f711a3e075c773e85e6413580903706b497783
  try{const a=await api('/achievements');const items=a.filter(x=>x.kind==='participant'&&x.result);hl.innerHTML=items.length?items.map(x=>`<div class="skill-chip"><div class="skill-symbol">★</div><strong>${esc(x.result)}</strong><div class="small" style="color:var(--muted)">${esc(x.title)}</div></div>`).join(''):'<div class="empty-state">Results will appear here.</div>';}
  catch{hl.innerHTML='<div class="empty-state">Highlights are temporarily unavailable.</div>';}
 });
